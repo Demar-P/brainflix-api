@@ -5,9 +5,7 @@ const crypto = require('crypto')
 
 function readvideodefile() {
     const videos = fs.readFileSync('./data/video-details.json')
-    console.log(videos, 'This is the json file info');
     const videosParsed = JSON.parse(videos)
-    // console.log(videosParsed, 'this is the info parsed');
     return videosParsed
 }
 
@@ -16,33 +14,39 @@ function readvideodefile() {
 router.get("/", (req, res) => {
     const videos = readvideodefile()
     res.json(videos)
-    // console.log(res, 'This is the res in videos.js');
+
     res.end()
 })
 
 
 router.get("/:videoID", (req, res) => {
-    console.log(req, 'this is the req')
+
     const videos = readvideodefile();
     const results = videos.find((video) => video.id === req.params.videoID);
-    console.log(results, 'this is the results')
+
     res.json(results)
 })
 
 
 
-router.post("/", (req,res) =>{
-    console.log(req.body,'this is the req.body')
+router.post("/", (req, res) => {
+    console.log(req.body, 'i am here')
     const newVideo = {
         id: crypto.randomUUID(),
         name: req.body.title,
         description: req.body.description,
         updating: false,
-        
 
-        
+
+
     };
-    console.log(newVideo,'this is new video');
+
+    const videos = readvideodefile();
+    videos.push(newVideo);
+    fs.writeFileSync("./data/video-details.json", JSON.stringify(videos));
+
+    console.log(newVideo, 'this is new video');
+    res.status(201).json(newVideo)
 })
 
 module.exports = router;
