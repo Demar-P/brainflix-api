@@ -1,7 +1,23 @@
+require("dotenv").config();
 const express = require('express');
 const app = express();
-const port = 8085
+const PORT = process.env.PORT;
+const videos = require('./routes/videos')
+const cors = require('cors');
 
+
+app.use(cors({
+    origin: 'http://localhost:3000',
+})
+)
+
+
+app.use(express.json());
+
+app.use('/public-images', express.static('./files'));
+
+
+app.use(express.json()); app.use('/videos', videos);
 
 app.get('/', (req, res) => {
     // send some text back as a response
@@ -9,7 +25,10 @@ app.get('/', (req, res) => {
 });
 // END OF NEW CODE
 
-app.listen(8085, () => {
+app.use("/videos", videos);
+
+app.listen(PORT, () => {
     console.log('Server Started on http://localhost:8080');
-    console.log('Press CTRL + C to stop server');
+    
+    console.log(PORT, 'this is the port in app.listen')
 });
