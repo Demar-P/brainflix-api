@@ -45,8 +45,16 @@ router.post("/", (req, res) => {
     videos.push(newVideo);
     fs.writeFileSync("./data/video-details.json", JSON.stringify(videos));
 
-    console.log(newVideo, 'this is new video');
     res.status(201).json(newVideo)
-})
+});
+
+router.delete(":videoID", (req, res) => {
+    const videos = readvideofile();
+    const remainingVideos = videos.filter((video) => {
+        return video.id !== req.params.videoID;
+    });
+    fs.writeFileSync("./data/video-details.json", JSON.stringify(remainingVideos));
+    res.status(200).send('Successfully deleted athlete');
+});
 
 module.exports = router;
