@@ -36,6 +36,14 @@ router.post("/", (req, res) => {
         name: req.body.title,
         description: req.body.description,
         updating: false,
+        likes: "",
+        channel: "n/a",
+        video: "",
+        timestamp: " ",
+        views: "",
+        duration: "",
+        timestamp: "",
+        comments: []
 
 
 

@@ -4,17 +4,19 @@ const app = express();
 const PORT = process.env.PORT;
 const videos = require('./routes/videos')
 const cors = require('cors');
+const path = require('path');
 
+app.use(express.static(path.join(__images, 'public')));
 
 app.use(cors({
-    origin: 'http://localhost:3000',
+    origin: 'http://localhost:8088',
 })
 )
 
 
 app.use(express.json());
 
-app.use('/public-images', express.static('./files'));
+
 
 
 app.use(express.json()); app.use('/videos', videos);
@@ -28,7 +30,7 @@ app.get('/', (req, res) => {
 app.use("/videos", videos);
 
 app.listen(PORT, () => {
-    console.log('Server Started on http://localhost:8080');
-    
+    console.log('Server Started on http://localhost:8088');
+
     console.log(PORT, 'this is the port in app.listen')
 });
