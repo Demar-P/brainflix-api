@@ -6,15 +6,15 @@ const videos = require('./routes/videos')
 const cors = require('cors');
 
 
-app.use(cors({
-    origin: 'http://localhost:3000',
-})
-)
 
+
+app.use(cors({ origin: '*' }))
+
+app.use(express.static('public'));
 
 app.use(express.json());
 
-app.use('/public-images', express.static('./files'));
+
 
 
 app.use(express.json()); app.use('/videos', videos);
@@ -28,7 +28,7 @@ app.get('/', (req, res) => {
 app.use("/videos", videos);
 
 app.listen(PORT, () => {
-    console.log('Server Started on http://localhost:8080');
-    
+    console.log('Server Started on http://localhost:8081');
+
     console.log(PORT, 'this is the port in app.listen')
 });
