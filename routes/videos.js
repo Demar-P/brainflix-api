@@ -30,12 +30,21 @@ router.get("/:videoID", (req, res) => {
 
 
 router.post("/", (req, res) => {
-    console.log(req.body, 'i am here')
+    console.log(req.body, 'this is the incoming upload details')
     const newVideo = {
         id: crypto.randomUUID(),
-        name: req.body.title,
+        title: req.body.title,
         description: req.body.description,
         updating: false,
+        likes: "200,000,000",
+        channel: "Mr Beast",
+        video: "",
+        timestamp: "4:20 ",
+        views: "1,200,000,000",
+        duration: "",
+        timestamp: "",
+        image: 'http://localhost:8081/images/Upload-video-preview.jpg',
+        comments: []
 
 
 
